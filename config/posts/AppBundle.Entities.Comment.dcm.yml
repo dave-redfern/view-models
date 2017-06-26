@@ -1,0 +1,29 @@
+AppBundle\Entities\Comment:
+    type: entity
+    table: post_comments
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: identity
+            options:
+                unsigned: true
+
+    embedded:
+        commenter:
+            class: AppBundle\Entities\ValueObjects\Commenter
+
+    fields:
+        comments:
+            type: text
+            length: 4000
+
+        createdAt:
+            type: datetime
+            column: created_at
+
+    manyToOne:
+        post:
+            targetEntity: AppBundle\Entities\Post
+            mappedBy: post

@@ -1,0 +1,7 @@
+AppBundle\Entities\ValueObjects\PostContent:
+    type: embeddable
+
+    fields:
+        content:
+            type: text
+            length: 65000

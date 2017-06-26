@@ -1,0 +1,46 @@
+AppBundle\Entities\Post:
+    type: entity
+    table: posts
+    repositoryClass: AppBundle\Repositories\PostRepository
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: identity
+            options:
+                unsigned: true
+
+    embedded:
+        author:
+            class: AppBundle\Entities\ValueObjects\PostAuthor
+
+        title:
+            class: AppBundle\Entities\ValueObjects\PostTitle
+
+        content:
+            class: AppBundle\Entities\ValueObjects\PostContent
+
+    fields:
+        publishedAt:
+            type: datetime
+            nullable: true
+            column: published_at
+
+        createdAt:
+            type: datetime
+            column: created_at
+
+        updatedAt:
+            type: datetime
+            column: updated_at
+
+
+    oneToMany:
+        comments:
+            targetEntity: AppBundle\Entities\Comment
+            cascade: [ 'persist', 'remove' ]
+            mappedBy: post
+            fetch: EXTRA_LAZY
+            joinColumn:
+                onDelete: CASCADE
